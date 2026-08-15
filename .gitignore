@@ -1,0 +1,10 @@
+node_modules/
+dist/
+build/
+DerivedData/
+.DS_Store
+coverage/
+*.tsbuildinfo
+scripts/ralph/LAST_REPLY.md
+scripts/ralph/LAST_THINKING.md
+scripts/ralph/LAST_VERIFY.txt

@@ -1,12 +1,12 @@
 {
   "project": "prayer-lock",
   "branchName": "ralph/miqat",
-  "description": "SwiftUI iOS prayer-lock alarm that compiles on iPhone 17 Pro sim.",
+  "description": "SwiftUI iOS prayer-lock alarm named Miqat that compiles on iPhone 17 Pro sim and looks like a chapel, not Clock.app.",
   "userStories": [
     {
       "id": "US-001",
       "title": "Xcode project builds",
-      "description": "Miqat.xcodeproj, SwiftUI app target. Must xcodebuild on iOS Simulator. No missing types. No fake SwiftData preview inits. No unknown next/font-style mistakes. SealCameraController must exist if referenced. AVSpeechSynthesisDelegate needs import AVFAudio.",
+      "description": "Miqat.xcodeproj, SwiftUI app target Miqat. Must xcodebuild on iOS Simulator iPhone 17 Pro OS 26.5. Every referenced type exists. No fake SwiftData preview inits. SealCameraController must exist if referenced. AVSpeechSynthesisDelegate needs import AVFAudio. App entry, ChapelTheme, and a compilable Home placeholder.",
       "acceptanceCriteria": [
         "xcodebuild -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' build exits 0"
       ],
@@ -17,38 +17,53 @@
     {
       "id": "US-002",
       "title": "Home clock face",
-      "description": "Sacred chapel home with a Canvas clock, not a DatePicker screenshot.",
+      "description": "Sacred chapel home with a Canvas clock (LampClockView), not a DatePicker screenshot. Oil-lamp palette, dark stone, warm wick. Home is the root after a short onboarding. List of alarms beneath the clock. Plus button to add.",
       "acceptanceCriteria": [
         "Home view is the root after onboarding",
+        "Canvas clock exists",
         "Same xcodebuild still exits 0"
       ],
       "priority": 2,
       "passes": false,
-      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build"
+      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build && grep -R -q 'Canvas' --include='*.swift' . && grep -R -q -E 'LampClock|ClockFace|Chapel' --include='*.swift' ."
     },
     {
       "id": "US-003",
       "title": "Create an alarm",
-      "description": "User can add time, repeat days, prayer pack, seal pack.",
+      "description": "User can add time, repeat days, label, prayer pack (1-4 rakaat), recitation toggle, seal pack toggle. Editor compiles and is reachable from home. SwiftData or equivalent persistence on device only.",
       "acceptanceCriteria": [
         "Editor compiles and is reachable from home",
         "xcodebuild exits 0"
       ],
       "priority": 3,
       "passes": false,
-      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build"
+      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build && grep -R -q -E 'AlarmEditor|EditorView' --include='*.swift' . && grep -R -q -E 'raka|prayerPack|PrayerPack' --include='*.swift' ."
     },
     {
       "id": "US-004",
       "title": "Lock chapel + prayer rite",
-      "description": "Full-screen lock, raka'at state machine, debug three-finger complete on simulator.",
+      "description": "Full-screen lock chapel when an alarm fires. Rakaat state machine: stand, bow, prostrate, sit. Breath ring during holds. Debug three-finger tap completes the current step on simulator DEBUG builds only. Emergency long-press exit stub compiles.",
       "acceptanceCriteria": [
         "Lock + rite views compile",
+        "State machine exists",
         "xcodebuild exits 0"
       ],
       "priority": 4,
       "passes": false,
-      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build"
+      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build && grep -R -q -E 'LockChapel|RiteMachine|PrayerRite' --include='*.swift' . && grep -R -q -E 'threeFinger|UITapGestureRecognizer|onTapGesture.*3' --include='*.swift' ."
+    },
+    {
+      "id": "US-005",
+      "title": "Chapel polish for camera",
+      "description": "Onboarding, vestry/settings, emergency phrase, and a lock screen that looks filmable: wick, stone, breath ring, Arabic-aware typography without fake religious text dumps. Keep xcodebuild green.",
+      "acceptanceCriteria": [
+        "Onboarding or vestry exists",
+        "xcodebuild exits 0",
+        "At least 8 Swift files"
+      ],
+      "priority": 5,
+      "passes": false,
+      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build && test $(find . -name '*.swift' ! -path './DerivedData/*' | wc -l) -ge 8 && grep -R -q -E 'Onboarding|Vestry|ChapelTheme' --include='*.swift' ."
     }
   ]
 }
