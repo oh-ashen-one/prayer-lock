@@ -1,0 +1,54 @@
+{
+  "project": "prayer-lock",
+  "branchName": "ralph/miqat",
+  "description": "SwiftUI iOS prayer-lock alarm that compiles on iPhone 17 Pro sim.",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Xcode project builds",
+      "description": "Miqat.xcodeproj, SwiftUI app target. Must xcodebuild on iOS Simulator. No missing types. No fake SwiftData preview inits. No unknown next/font-style mistakes. SealCameraController must exist if referenced. AVSpeechSynthesisDelegate needs import AVFAudio.",
+      "acceptanceCriteria": [
+        "xcodebuild -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' build exits 0"
+      ],
+      "priority": 1,
+      "passes": false,
+      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build"
+    },
+    {
+      "id": "US-002",
+      "title": "Home clock face",
+      "description": "Sacred chapel home with a Canvas clock, not a DatePicker screenshot.",
+      "acceptanceCriteria": [
+        "Home view is the root after onboarding",
+        "Same xcodebuild still exits 0"
+      ],
+      "priority": 2,
+      "passes": false,
+      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build"
+    },
+    {
+      "id": "US-003",
+      "title": "Create an alarm",
+      "description": "User can add time, repeat days, prayer pack, seal pack.",
+      "acceptanceCriteria": [
+        "Editor compiles and is reachable from home",
+        "xcodebuild exits 0"
+      ],
+      "priority": 3,
+      "passes": false,
+      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build"
+    },
+    {
+      "id": "US-004",
+      "title": "Lock chapel + prayer rite",
+      "description": "Full-screen lock, raka'at state machine, debug three-finger complete on simulator.",
+      "acceptanceCriteria": [
+        "Lock + rite views compile",
+        "xcodebuild exits 0"
+      ],
+      "priority": 4,
+      "passes": false,
+      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build"
+    }
+  ]
+}
