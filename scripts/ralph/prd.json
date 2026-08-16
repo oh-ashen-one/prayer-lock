@@ -60,7 +60,7 @@
         "xcodebuild exits 0"
       ],
       "priority": 4,
-      "passes": false,
+      "passes": true,
       "verify": "cd /Users/midir/qwen-showcase/03-prayer-lock && /opt/homebrew/bin/xcodegen generate >/dev/null 2>&1; xcodebuild -project Miqat.xcodeproj -scheme Miqat -sdk iphonesimulator26.5 CODE_SIGNING_ALLOWED=NO -derivedDataPath /tmp/miqat-ralph-dd build && grep -R -q -E 'LockChapel|RiteMachine|PrayerRite' --include='*.swift' . && grep -R -q -E 'threeFinger|UITapGestureRecognizer|onTapGesture.*3' --include='*.swift' ."
     },
     {

@@ -3,19 +3,14 @@ options:
   bundleIdPrefix: com.ashen
   deploymentTarget:
     iOS: "26.0"
-
 targets:
   Miqat:
     type: application
     platform: iOS
-    sources:
-      - path: Miqat
-        excludes:
-          - "Info.plist"
+    sources: [Miqat]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.ashen.miqat
         INFOPLIST_FILE: Miqat/Info.plist
         GENERATE_INFOPLIST_FILE: NO
         SWIFT_VERSION: "5.0"
-        TARGETED_DEVICE_FAMILY: "1,2"

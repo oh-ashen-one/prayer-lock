@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2629160C60CC8E61F032412D /* BreathRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78E7A6739F65D65B7E82F76 /* BreathRingView.swift */; };
+		2EC10032ED4BFCEDADACA740 /* LockChapelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F08454FC5FAFE1545A8B8A /* LockChapelView.swift */; };
+		4A137FC6954B4FC8B410E9F9 /* RiteMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992A79887E7A76BC5A398145 /* RiteMachine.swift */; };
 		52BA32C71D72E503B63FB563 /* ChapelTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D15A670827B877481AC8893 /* ChapelTheme.swift */; };
 		9BBB4C90616BB336B15458DD /* AlarmModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56BE2AF1EDE1A4A1B52E5BA /* AlarmModels.swift */; };
 		A1153C2B89E0FE92E20D8E45 /* AlarmEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569A7AB6B531E939644FD69D /* AlarmEditorView.swift */; };
@@ -17,9 +20,13 @@
 /* Begin PBXFileReference section */
 		0A00302EC6968CC966B9274A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		38A5AAFAB78E712BC63564C2 /* MiqatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiqatApp.swift; sourceTree = "<group>"; };
+		38B8E48439969A3016471DC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3D15A670827B877481AC8893 /* ChapelTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapelTheme.swift; sourceTree = "<group>"; };
 		54BBFA229BFC2E1C7E9B3353 /* Miqat.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Miqat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		569A7AB6B531E939644FD69D /* AlarmEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditorView.swift; sourceTree = "<group>"; };
+		89F08454FC5FAFE1545A8B8A /* LockChapelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockChapelView.swift; sourceTree = "<group>"; };
+		992A79887E7A76BC5A398145 /* RiteMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiteMachine.swift; sourceTree = "<group>"; };
+		C78E7A6739F65D65B7E82F76 /* BreathRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathRingView.swift; sourceTree = "<group>"; };
 		D56BE2AF1EDE1A4A1B52E5BA /* AlarmModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -45,9 +52,13 @@
 			children = (
 				569A7AB6B531E939644FD69D /* AlarmEditorView.swift */,
 				D56BE2AF1EDE1A4A1B52E5BA /* AlarmModels.swift */,
+				C78E7A6739F65D65B7E82F76 /* BreathRingView.swift */,
 				3D15A670827B877481AC8893 /* ChapelTheme.swift */,
 				0A00302EC6968CC966B9274A /* HomeView.swift */,
+				38B8E48439969A3016471DC5 /* Info.plist */,
+				89F08454FC5FAFE1545A8B8A /* LockChapelView.swift */,
 				38A5AAFAB78E712BC63564C2 /* MiqatApp.swift */,
+				992A79887E7A76BC5A398145 /* RiteMachine.swift */,
 			);
 			path = Miqat;
 			sourceTree = "<group>";
@@ -109,9 +120,12 @@
 			files = (
 				A1153C2B89E0FE92E20D8E45 /* AlarmEditorView.swift in Sources */,
 				9BBB4C90616BB336B15458DD /* AlarmModels.swift in Sources */,
+				2629160C60CC8E61F032412D /* BreathRingView.swift in Sources */,
 				52BA32C71D72E503B63FB563 /* ChapelTheme.swift in Sources */,
 				A7E8AF641EB99DD66E66EBC9 /* HomeView.swift in Sources */,
+				2EC10032ED4BFCEDADACA740 /* LockChapelView.swift in Sources */,
 				DD0CA56CFE8A763E165BFE8D /* MiqatApp.swift in Sources */,
+				4A137FC6954B4FC8B410E9F9 /* RiteMachine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,10 +1,12 @@
 import SwiftUI
 
 /// The home of the chapel: a Canvas lamp clock above the kept alarms,
-/// with the plus that lights a new one.
+/// with the plus that lights a new one. When an alarm's moment arrives and
+/// its lock is armed, the full-screen LockChapelView takes over.
 struct HomeView: View {
     @State private var alarmsData: Data = (try? JSONEncoder().encode(LampStore.load())) ?? Data()
     @State private var showingNewAlarm = false
+    @State private var firingAlarm: LampAlarm?
 
     private var alarms: [LampAlarm] {
         (try? JSONDecoder().decode([LampAlarm].self, from: alarmsData)) ?? []
@@ -53,8 +55,16 @@ struct HomeView: View {
 
             addButton
         }
+        // The lock chapel: no dismiss gesture, the rite or the emergency exit.
+        .fullScreenCover(item: $firingAlarm) { alarm in
+            LockChapelView(alarm: alarm)
+                .ignoresSafeArea()
+        }
         .sheet(isPresented: $showingNewAlarm) {
             AlarmEditorView(alarm: nil)
+        }
+        .onReceive(Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()) { now in
+            checkForFiring(alarmAt: now)
         }
     }
 
@@ -83,6 +93,19 @@ struct HomeView: View {
                     .buttonStyle(.plain)
                     .chapelCard()
                 }
+
+                Button {
+                    fireNextLightForPreview()
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "flame")
+                            .font(.system(size: 11))
+                        Text("light the next one now")
+                            .chapelLabel(10, weight: .regular)
+                    }
+                    .foregroundStyle(ChapelTheme.brassDim)
+                }
+                .buttonStyle(.plain)
             }
         }
     }
@@ -138,6 +161,37 @@ struct HomeView: View {
         guard let index = list.firstIndex(where: { $0.id == id }) else { return }
         list[index].enabled.toggle()
         alarmsData = (try? JSONEncoder().encode(list)) ?? Data()
+    }
+
+    // MARK: Firing
+
+    /// When a kept light's moment passes while the app is awake, open its
+    /// lock chapel. One-shot lights rest after they fire; repeating lights
+    /// keep their place and return on the next matching day.
+    private func checkForFiring(alarmAt now: Date) {
+        guard firingAlarm == nil else { return }
+        for alarm in alarms where alarm.enabled {
+            guard let fire = alarm.nextFire(after: now.addingTimeInterval(-90)),
+                  fire <= now else { continue }
+            firingAlarm = alarm
+            if alarm.isOneShot {
+                var list = alarms
+                if let index = list.firstIndex(where: { $0.id == alarm.id }) {
+                    list[index].enabled = false
+                    alarmsData = (try? JSONEncoder().encode(list)) ?? Data()
+                }
+            }
+            return
+        }
+    }
+
+    /// The preview handle: light the soonest kept one now, so the chapel can
+    /// be walked without waiting for its hour.
+    private func fireNextLightForPreview() {
+        guard firingAlarm == nil, let soonest = alarms.filter(\.enabled).min(by: {
+            ($0.hour * 60 + $0.minute) < ($1.hour * 60 + $1.minute)
+        }) else { return }
+        firingAlarm = soonest
     }
 }
 
