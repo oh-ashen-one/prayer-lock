@@ -15,7 +15,6 @@
 /* Begin PBXFileReference section */
 		0A00302EC6968CC966B9274A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		38A5AAFAB78E712BC63564C2 /* MiqatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiqatApp.swift; sourceTree = "<group>"; };
-		38B8E48439969A3016471DC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3D15A670827B877481AC8893 /* ChapelTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapelTheme.swift; sourceTree = "<group>"; };
 		54BBFA229BFC2E1C7E9B3353 /* Miqat.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Miqat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -42,7 +41,6 @@
 			children = (
 				3D15A670827B877481AC8893 /* ChapelTheme.swift */,
 				0A00302EC6968CC966B9274A /* HomeView.swift */,
-				38B8E48439969A3016471DC5 /* Info.plist */,
 				38A5AAFAB78E712BC63564C2 /* MiqatApp.swift */,
 			);
 			path = Miqat;
@@ -117,16 +115,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Miqat/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Miqat;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ashen.miqat;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -258,16 +252,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Miqat/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Miqat;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ashen.miqat;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
