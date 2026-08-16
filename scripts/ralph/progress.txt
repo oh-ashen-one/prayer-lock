@@ -1,0 +1,27 @@
+# Ralph Progress Log
+Started: Sat Aug 15 18:32:35 EDT 2026
+---
+
+## 2026-08-16 10:54 UTC - US-001
+- verify_ok: False
+- files: project.yml, Miqat/MiqatApp.swift, Miqat/ChapelTheme.swift, Miqat/HomeView.swift
+- checks FAILED — next iteration must fix LAST_VERIFY.txt
+---
+
+## 2026-08-16 10:55 UTC - US-001
+- verify_ok: False
+- files: project.yml, Miqat/MiqatApp.swift
+- checks FAILED — next iteration must fix LAST_VERIFY.txt
+---
+
+## 2026-08-16 10:59 UTC - US-001
+- verify_ok: False
+- files: Miqat/HomeView.swift
+- checks FAILED — next iteration must fix LAST_VERIFY.txt
+---
+
+## 2026-08-16 11:01 UTC - US-001
+- verify_ok: False
+- files: project.yml, Miqat/ChapelTheme.swift
+- checks FAILED — next iteration must fix LAST_VERIFY.txt
+---

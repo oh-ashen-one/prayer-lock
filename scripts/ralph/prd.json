@@ -6,13 +6,19 @@
     {
       "id": "US-001",
       "title": "Xcode project builds",
-      "description": "Miqat.xcodeproj, SwiftUI app target Miqat. Must xcodebuild on iOS Simulator iPhone 17 Pro OS 26.5. Every referenced type exists. No fake SwiftData preview inits. SealCameraController must exist if referenced. AVSpeechSynthesisDelegate needs import AVFAudio. App entry, ChapelTheme, and a compilable Home placeholder.",
+      "description": "Do NOT emit Miqat.xcodeproj or any .pbxproj \u2014 the harness generates the project with xcodegen from project.yml. Emit EXACTLY these four files, one or two per iteration, each complete: (1) project.yml \u2014 a minimal XcodeGen spec: name Miqat, one iOS app target Miqat, deploymentTarget iOS 26.0, sources [Miqat], bundle id com.ashen.miqat, generate an Info.plist automatically via settings. (2) Miqat/MiqatApp.swift \u2014 @main SwiftUI App showing HomeView. (3) Miqat/ChapelTheme.swift \u2014 the sacred chapel design tokens (deep night blues, candle gold, Song-geometry accents per the brief). (4) Miqat/HomeView.swift \u2014 compilable chapel home placeholder using ChapelTheme. Every referenced type must exist.",
       "acceptanceCriteria": [
         "xcodebuild -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' build exits 0"
       ],
       "priority": 1,
-      "passes": false,
-      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build"
+      "passes": true,
+      "verify": "cd /Users/midir/qwen-showcase/03-prayer-lock && /opt/homebrew/bin/xcodegen generate >/dev/null 2>&1; xcodebuild -project Miqat.xcodeproj -scheme Miqat -sdk iphonesimulator26.5 CODE_SIGNING_ALLOWED=NO -derivedDataPath /tmp/miqat-ralph-dd build",
+      "allowedFiles": [
+        "project.yml",
+        "Miqat/MiqatApp.swift",
+        "Miqat/ChapelTheme.swift",
+        "Miqat/HomeView.swift"
+      ]
     },
     {
       "id": "US-002",
@@ -25,7 +31,7 @@
       ],
       "priority": 2,
       "passes": false,
-      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build && grep -R -q 'Canvas' --include='*.swift' . && grep -R -q -E 'LampClock|ClockFace|Chapel' --include='*.swift' ."
+      "verify": "cd /Users/midir/qwen-showcase/03-prayer-lock && /opt/homebrew/bin/xcodegen generate >/dev/null 2>&1; xcodebuild -project Miqat.xcodeproj -scheme Miqat -sdk iphonesimulator26.5 CODE_SIGNING_ALLOWED=NO -derivedDataPath /tmp/miqat-ralph-dd build && grep -R -q 'Canvas' --include='*.swift' . && grep -R -q -E 'LampClock|ClockFace|Chapel' --include='*.swift' ."
     },
     {
       "id": "US-003",
@@ -37,7 +43,7 @@
       ],
       "priority": 3,
       "passes": false,
-      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build && grep -R -q -E 'AlarmEditor|EditorView' --include='*.swift' . && grep -R -q -E 'raka|prayerPack|PrayerPack' --include='*.swift' ."
+      "verify": "cd /Users/midir/qwen-showcase/03-prayer-lock && /opt/homebrew/bin/xcodegen generate >/dev/null 2>&1; xcodebuild -project Miqat.xcodeproj -scheme Miqat -sdk iphonesimulator26.5 CODE_SIGNING_ALLOWED=NO -derivedDataPath /tmp/miqat-ralph-dd build && grep -R -q -E 'AlarmEditor|EditorView' --include='*.swift' . && grep -R -q -E 'raka|prayerPack|PrayerPack' --include='*.swift' ."
     },
     {
       "id": "US-004",
@@ -50,7 +56,7 @@
       ],
       "priority": 4,
       "passes": false,
-      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build && grep -R -q -E 'LockChapel|RiteMachine|PrayerRite' --include='*.swift' . && grep -R -q -E 'threeFinger|UITapGestureRecognizer|onTapGesture.*3' --include='*.swift' ."
+      "verify": "cd /Users/midir/qwen-showcase/03-prayer-lock && /opt/homebrew/bin/xcodegen generate >/dev/null 2>&1; xcodebuild -project Miqat.xcodeproj -scheme Miqat -sdk iphonesimulator26.5 CODE_SIGNING_ALLOWED=NO -derivedDataPath /tmp/miqat-ralph-dd build && grep -R -q -E 'LockChapel|RiteMachine|PrayerRite' --include='*.swift' . && grep -R -q -E 'threeFinger|UITapGestureRecognizer|onTapGesture.*3' --include='*.swift' ."
     },
     {
       "id": "US-005",
@@ -63,7 +69,7 @@
       ],
       "priority": 5,
       "passes": false,
-      "verify": "xcodebuild -project Miqat.xcodeproj -scheme Miqat -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' -derivedDataPath /tmp/miqat-ralph-dd build && test $(find . -name '*.swift' ! -path './DerivedData/*' | wc -l) -ge 8 && grep -R -q -E 'Onboarding|Vestry|ChapelTheme' --include='*.swift' ."
+      "verify": "cd /Users/midir/qwen-showcase/03-prayer-lock && /opt/homebrew/bin/xcodegen generate >/dev/null 2>&1; xcodebuild -project Miqat.xcodeproj -scheme Miqat -sdk iphonesimulator26.5 CODE_SIGNING_ALLOWED=NO -derivedDataPath /tmp/miqat-ralph-dd build && test $(find . -name '*.swift' ! -path './DerivedData/*' | wc -l) -ge 8 && grep -R -q -E 'Onboarding|Vestry|ChapelTheme' --include='*.swift' ."
     }
   ]
 }

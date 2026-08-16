@@ -8,3 +8,6 @@ coverage/
 scripts/ralph/LAST_REPLY.md
 scripts/ralph/LAST_THINKING.md
 scripts/ralph/LAST_VERIFY.txt
+.next/
+__pycache__/
+*.pyc

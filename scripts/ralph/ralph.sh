@@ -77,6 +77,7 @@ for i in $(seq 1 "$MAX_ITERATIONS"); do
   OUTPUT=""
   if [[ "$TOOL" == "qwen" ]]; then
     OUTPUT=$(python3 "$SCRIPT_DIR/qwen_iteration.py" 2>&1 | tee /dev/stderr) || true
+    python3 "$SCRIPT_DIR/strip_markers.py" >/dev/null 2>&1 || true
   elif [[ "$TOOL" == "amp" ]]; then
     OUTPUT=$(cat "$SCRIPT_DIR/prompt.md" | amp --dangerously-allow-all 2>&1 | tee /dev/stderr) || true
   else

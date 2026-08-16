@@ -1,0 +1,1 @@
+open Miqat.xcodeproj in Xcode 15+, select the Miqat scheme on an iPhone simulator (iOS 17+) and press Cmd-R; run the three test suites with the MiqatTests scheme (Cmd-U) — full walk-through, entitlements notes, and the 8-beat shot list are in README.md.
