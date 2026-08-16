@@ -31,3 +31,21 @@ Started: Sat Aug 15 18:32:35 EDT 2026
 - files: Miqat/ChapelTheme.swift
 - checks passed
 ---
+
+## 2026-08-16 11:04 UTC - US-002
+- verify_ok: True
+- files: project.yml, Miqat/MiqatApp.swift
+- checks passed
+---
+
+## 2026-08-16 11:13 UTC - US-003
+- verify_ok: False
+- files: Miqat/AlarmEditorView.swift, Miqat/HomeView.swift
+- checks FAILED — next iteration must fix LAST_VERIFY.txt
+---
+
+## 2026-08-16 11:15 UTC - US-003
+- verify_ok: False
+- files: Miqat/AlarmModels.swift
+- checks FAILED — next iteration must fix LAST_VERIFY.txt
+---

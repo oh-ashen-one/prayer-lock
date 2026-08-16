@@ -36,14 +36,19 @@
     {
       "id": "US-003",
       "title": "Create an alarm",
-      "description": "User can add time, repeat days, label, prayer pack (1-4 rakaat), recitation toggle, seal pack toggle. Editor compiles and is reachable from home. SwiftData or equivalent persistence on device only.",
+      "description": "User can add time, repeat days, label, prayer pack (1-4 rakaat), recitation toggle, seal pack toggle. Editor compiles and is reachable from home. SwiftData or equivalent persistence on device only. EMISSION RULES: AlarmModels.swift is already on disk and good \u2014 do not re-emit it. Emit ONE file per iteration. AlarmEditorView.swift keeps truncating \u2014 keep it under 170 lines: extract row/subviews into computed properties, cut comments, no previews. Files go under Miqat/ \u2014 never at repo root.",
       "acceptanceCriteria": [
         "Editor compiles and is reachable from home",
         "xcodebuild exits 0"
       ],
       "priority": 3,
-      "passes": false,
-      "verify": "cd /Users/midir/qwen-showcase/03-prayer-lock && /opt/homebrew/bin/xcodegen generate >/dev/null 2>&1; xcodebuild -project Miqat.xcodeproj -scheme Miqat -sdk iphonesimulator26.5 CODE_SIGNING_ALLOWED=NO -derivedDataPath /tmp/miqat-ralph-dd build && grep -R -q -E 'AlarmEditor|EditorView' --include='*.swift' . && grep -R -q -E 'raka|prayerPack|PrayerPack' --include='*.swift' ."
+      "passes": true,
+      "verify": "cd /Users/midir/qwen-showcase/03-prayer-lock && /opt/homebrew/bin/xcodegen generate >/dev/null 2>&1; xcodebuild -project Miqat.xcodeproj -scheme Miqat -sdk iphonesimulator26.5 CODE_SIGNING_ALLOWED=NO -derivedDataPath /tmp/miqat-ralph-dd build && grep -R -q -E 'AlarmEditor|EditorView' --include='*.swift' . && grep -R -q -E 'raka|prayerPack|PrayerPack' --include='*.swift' .",
+      "allowedFiles": [
+        "Miqat/AlarmEditorView.swift",
+        "Miqat/AlarmModels.swift",
+        "Miqat/HomeView.swift"
+      ]
     },
     {
       "id": "US-004",

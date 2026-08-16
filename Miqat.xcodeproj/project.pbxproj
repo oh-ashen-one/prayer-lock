@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		52BA32C71D72E503B63FB563 /* ChapelTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D15A670827B877481AC8893 /* ChapelTheme.swift */; };
+		9BBB4C90616BB336B15458DD /* AlarmModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56BE2AF1EDE1A4A1B52E5BA /* AlarmModels.swift */; };
+		A1153C2B89E0FE92E20D8E45 /* AlarmEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569A7AB6B531E939644FD69D /* AlarmEditorView.swift */; };
 		A7E8AF641EB99DD66E66EBC9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A00302EC6968CC966B9274A /* HomeView.swift */; };
 		DD0CA56CFE8A763E165BFE8D /* MiqatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A5AAFAB78E712BC63564C2 /* MiqatApp.swift */; };
 /* End PBXBuildFile section */
@@ -17,6 +19,8 @@
 		38A5AAFAB78E712BC63564C2 /* MiqatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiqatApp.swift; sourceTree = "<group>"; };
 		3D15A670827B877481AC8893 /* ChapelTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapelTheme.swift; sourceTree = "<group>"; };
 		54BBFA229BFC2E1C7E9B3353 /* Miqat.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Miqat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		569A7AB6B531E939644FD69D /* AlarmEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditorView.swift; sourceTree = "<group>"; };
+		D56BE2AF1EDE1A4A1B52E5BA /* AlarmModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -39,6 +43,8 @@
 		CB9F4367BC4700501F2D1E66 /* Miqat */ = {
 			isa = PBXGroup;
 			children = (
+				569A7AB6B531E939644FD69D /* AlarmEditorView.swift */,
+				D56BE2AF1EDE1A4A1B52E5BA /* AlarmModels.swift */,
 				3D15A670827B877481AC8893 /* ChapelTheme.swift */,
 				0A00302EC6968CC966B9274A /* HomeView.swift */,
 				38A5AAFAB78E712BC63564C2 /* MiqatApp.swift */,
@@ -101,6 +107,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1153C2B89E0FE92E20D8E45 /* AlarmEditorView.swift in Sources */,
+				9BBB4C90616BB336B15458DD /* AlarmModels.swift in Sources */,
 				52BA32C71D72E503B63FB563 /* ChapelTheme.swift in Sources */,
 				A7E8AF641EB99DD66E66EBC9 /* HomeView.swift in Sources */,
 				DD0CA56CFE8A763E165BFE8D /* MiqatApp.swift in Sources */,

@@ -1,40 +1,9 @@
 import SwiftUI
 
-/// One alarm, kept on-device only. No cloud, no account: an array in
-/// `@AppStorage` is the whole persistence for now.
-struct LampAlarm: Identifiable, Codable {
-    var id = UUID()
-    var label: String
-    var timeSecondsOfDay: Int
-    var enabled: Bool
-
-    init(label: String = "The lamp", timeSecondsOfDay: Int, enabled: Bool = true) {
-        self.label = label
-        self.timeSecondsOfDay = timeSecondsOfDay
-        self.enabled = enabled
-    }
-
-    var hour: Int { timeSecondsOfDay / 3600 }
-    var minute: Int { (timeSecondsOfDay % 3600) / 60 }
-
-    var formattedTime: String {
-        String(format: "%02d:%02d", hour, minute)
-    }
-
-    /// The next moment strictly after `date` at which this alarm fires.
-    func nextFire(after date: Date, calendar: Calendar = .current) -> Date? {
-        let dayStart = calendar.startOfDay(for: date)
-        let candidate = dayStart.addingTimeInterval(TimeInterval(timeSecondsOfDay))
-        if candidate > date { return candidate }
-        guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: dayStart) else { return nil }
-        return tomorrow.addingTimeInterval(TimeInterval(timeSecondsOfDay))
-    }
-}
-
 /// The home of the chapel: a Canvas lamp clock above the kept alarms,
 /// with the plus that lights a new one.
 struct HomeView: View {
-    @AppStorage("miqat.lampAlarms") private var alarmsData: Data = Data()
+    @State private var alarmsData: Data = (try? JSONEncoder().encode(LampStore.load())) ?? Data()
     @State private var showingNewAlarm = false
 
     private var alarms: [LampAlarm] {
@@ -85,7 +54,7 @@ struct HomeView: View {
             addButton
         }
         .sheet(isPresented: $showingNewAlarm) {
-            NewLightSheet(alarmsData: $alarmsData)
+            AlarmEditorView(alarm: nil)
         }
     }
 
@@ -106,32 +75,47 @@ struct HomeView: View {
                     .foregroundStyle(ChapelTheme.dim.opacity(0.7))
             } else {
                 ForEach(alarms) { alarm in
-                    HStack(spacing: 12) {
-                        Circle()
-                            .fill(alarm.enabled ? ChapelTheme.flame : ChapelTheme.stoneLit)
-                            .frame(width: 7, height: 7)
-
-                        Text(alarm.label.isEmpty ? "The lamp" : alarm.label)
-                            .chapelLabel(14, weight: .regular)
-                            .foregroundStyle(alarm.enabled ? ChapelTheme.text : ChapelTheme.dim)
-
-                        Spacer()
-
-                        Text(alarm.formattedTime)
-                            .font(ChapelTheme.display(16, weight: .regular))
-                            .foregroundStyle(alarm.enabled ? ChapelTheme.brass : ChapelTheme.dim)
-
-                        Button {
-                            toggleAlarm(alarm.id)
-                        } label: {
-                            Image(systemName: alarm.enabled ? "flame.fill" : "flame")
-                                .font(.system(size: 13))
-                                .foregroundStyle(alarm.enabled ? ChapelTheme.flame : ChapelTheme.dim)
-                        }
+                    Button {
+                        showingNewAlarm = true
+                    } label: {
+                        alarmRow(alarm)
                     }
+                    .buttonStyle(.plain)
                     .chapelCard()
                 }
             }
+        }
+    }
+
+    private func alarmRow(_ alarm: LampAlarm) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 10) {
+                Circle()
+                    .fill(alarm.enabled ? ChapelTheme.flame : ChapelTheme.stoneLit)
+                    .frame(width: 7, height: 7)
+
+                Text(alarm.label.isEmpty ? "The lamp" : alarm.label)
+                    .chapelLabel(14, weight: .regular)
+                    .foregroundStyle(alarm.enabled ? ChapelTheme.text : ChapelTheme.dim)
+
+                Spacer()
+
+                Text(alarm.formattedTime)
+                    .font(ChapelTheme.display(16, weight: .regular))
+                    .foregroundStyle(alarm.enabled ? ChapelTheme.brass : ChapelTheme.dim)
+
+                Button {
+                    toggleAlarm(alarm.id)
+                } label: {
+                    Image(systemName: alarm.enabled ? "flame.fill" : "flame")
+                        .font(.system(size: 13))
+                        .foregroundStyle(alarm.enabled ? ChapelTheme.flame : ChapelTheme.dim)
+                }
+            }
+
+            Text("\(alarm.repeatSummary) · \(alarm.prayerPack.label)\(alarm.recitationEnabled ? " · recited" : "")\(alarm.sealPackEnabled ? " · sealed" : "")")
+                .chapelLabel(10, weight: .regular)
+                .foregroundStyle(ChapelTheme.dim.opacity(0.75))
         }
     }
 
@@ -154,96 +138,6 @@ struct HomeView: View {
         guard let index = list.firstIndex(where: { $0.id == id }) else { return }
         list[index].enabled.toggle()
         alarmsData = (try? JSONEncoder().encode(list)) ?? Data()
-    }
-}
-
-// MARK: - New light sheet
-
-struct NewLightSheet: View {
-    @Binding var alarmsData: Data
-    @Environment(\.dismiss) private var dismiss
-
-    @State private var label = ""
-    @State private var hour: Int = 5
-    @State private var minute: Int = 0
-
-    private var selectedDate: Date {
-        Calendar.current.date(from: DateComponents(hour: hour, minute: minute)) ?? .now
-    }
-
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                ChapelTheme.Background()
-
-                ScrollView {
-                    VStack(spacing: 20) {
-                        Text("AT")
-                            .chapelLabel(10, weight: .medium)
-                            .foregroundStyle(ChapelTheme.dim)
-
-                        Text(String(format: "%02d:%02d", hour, minute))
-                            .font(ChapelTheme.display(46, weight: .light))
-                            .foregroundStyle(ChapelTheme.brass)
-
-                        DatePicker("Time", selection: timeBinding, displayedComponents: .hourAndMinute)
-                            .labelsHidden()
-                            .chapelCard()
-
-                        TextField("Name the light", text: $label)
-                            .font(ChapelTheme.display(18, weight: .regular))
-                            .foregroundStyle(ChapelTheme.text)
-                            .tint(ChapelTheme.brass)
-                            .padding(.horizontal, 14)
-                            .frame(height: 50)
-                            .background(
-                                RoundedRectangle(cornerRadius: ChapelTheme.ChapelGeometry.cardRadius, style: .continuous)
-                                    .fill(ChapelTheme.well.opacity(0.5))
-                            )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: ChapelTheme.ChapelGeometry.cardRadius, style: .continuous)
-                                    .strokeBorder(ChapelTheme.brass.opacity(0.3), lineWidth: ChapelTheme.ChapelGeometry.hairline)
-                            )
-                    }
-                    .padding(24)
-                }
-            }
-            .navigationTitle("A new light")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
-                        .foregroundStyle(ChapelTheme.dim)
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Light it") { save() }
-                        .foregroundStyle(ChapelTheme.brass)
-                }
-            }
-        }
-    }
-
-    private var timeBinding: Binding<Date> {
-        Binding(
-            get: { selectedDate },
-            set: { newValue in
-                let components = Calendar.current.dateComponents([.hour, .minute], from: newValue)
-                hour = components.hour ?? 0
-                minute = components.minute ?? 0
-            }
-        )
-    }
-
-    private func save() {
-        var list = (try? JSONDecoder().decode([LampAlarm].self, from: alarmsData)) ?? []
-        list.append(
-            LampAlarm(
-                label: label.trimmingCharacters(in: .whitespaces),
-                timeSecondsOfDay: hour * 3600 + minute * 60
-            )
-        )
-        alarmsData = (try? JSONEncoder().encode(list)) ?? Data()
-        dismiss()
     }
 }
 
