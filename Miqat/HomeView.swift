@@ -2,11 +2,14 @@ import SwiftUI
 
 /// The home of the chapel: a Canvas lamp clock above the kept alarms,
 /// with the plus that lights a new one. When an alarm's moment arrives and
-/// its lock is armed, the full-screen LockChapelView takes over.
+/// its lock is armed, the full-screen LockChapelView takes over. The first
+/// time in, OnboardingView walks the rite; the vestry is reached from here.
 struct HomeView: View {
     @State private var alarmsData: Data = (try? JSONEncoder().encode(LampStore.load())) ?? Data()
     @State private var showingNewAlarm = false
     @State private var firingAlarm: LampAlarm?
+    @State private var showingVestry = false
+    @State private var showOnboarding: Bool = { !ChapelSettingsStore.hasOnboarded }()
 
     private var alarms: [LampAlarm] {
         (try? JSONDecoder().decode([LampAlarm].self, from: alarmsData)) ?? []
@@ -30,9 +33,22 @@ struct HomeView: View {
             VStack(spacing: 26) {
                 Spacer().frame(height: 8)
 
-                Text("MIQAT")
-                    .chapelLabel(15, weight: .medium)
-                    .foregroundStyle(ChapelTheme.brass)
+                HStack(spacing: 14) {
+                    Text("MIQAT")
+                        .chapelLabel(15, weight: .medium)
+                        .foregroundStyle(ChapelTheme.brass)
+
+                    Spacer()
+
+                    Button {
+                        showingVestry = true
+                    } label: {
+                        Image(systemName: "door.left.hand.open")
+                            .font(.system(size: 14))
+                            .foregroundStyle(ChapelTheme.brassDim)
+                    }
+                    .buttonStyle(.plain)
+                }
 
                 Text("the appointed boundary")
                     .chapelLabel(10, weight: .regular)
@@ -59,6 +75,14 @@ struct HomeView: View {
         .fullScreenCover(item: $firingAlarm) { alarm in
             LockChapelView(alarm: alarm)
                 .ignoresSafeArea()
+        }
+        // The first-arrival rite, walked once.
+        .fullScreenCover(isPresented: $showOnboarding) {
+            OnboardingView()
+                .onDisappear { showOnboarding = false }
+        }
+        .sheet(isPresented: $showingVestry) {
+            VestryView()
         }
         .sheet(isPresented: $showingNewAlarm) {
             AlarmEditorView(alarm: nil)

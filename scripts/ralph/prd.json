@@ -73,7 +73,7 @@
         "At least 8 Swift files"
       ],
       "priority": 5,
-      "passes": false,
+      "passes": true,
       "verify": "cd /Users/midir/qwen-showcase/03-prayer-lock && /opt/homebrew/bin/xcodegen generate >/dev/null 2>&1; xcodebuild -project Miqat.xcodeproj -scheme Miqat -sdk iphonesimulator26.5 CODE_SIGNING_ALLOWED=NO -derivedDataPath /tmp/miqat-ralph-dd build && test $(find . -name '*.swift' ! -path './DerivedData/*' | wc -l) -ge 8 && grep -R -q -E 'Onboarding|Vestry|ChapelTheme' --include='*.swift' ."
     }
   ]

@@ -67,3 +67,15 @@ Started: Sat Aug 15 18:32:35 EDT 2026
 - files: Miqat/HomeView.swift
 - checks FAILED — next iteration must fix LAST_VERIFY.txt
 ---
+
+## 2026-08-16 11:40 UTC - US-004
+- verify_ok: True
+- files: Miqat/LockChapelView.swift
+- checks passed
+---
+
+## 2026-08-16 11:46 UTC - US-005
+- verify_ok: False
+- files: Miqat/ChapelSettings.swift, Miqat/OnboardingView.swift, Miqat/VestryView.swift, Miqat/HomeView.swift
+- checks FAILED — next iteration must fix LAST_VERIFY.txt
+---
