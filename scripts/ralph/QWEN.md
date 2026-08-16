@@ -23,6 +23,9 @@ full file
 ## Hard rules
 
 - Your reply MUST start with `### FILE:`. Zero FILE blocks = hard fail.
+- Close the markdown fence with ``` before `### END FILE`. Never put `### FILE:` or `### END FILE` inside a file body.
+- Never emit a truncated file. If you cannot finish it, omit that ### FILE block and leave the on-disk copy.
+- Do not draft `### FILE:` inside reasoning. Short plan, then emit complete fenced files.
 - One story. Do not "also fix" later stories.
 - No placeholders, no `// rest here`, no `...`.
 - Do not touch clipfarm, `lmstudio-ensure`, or `com.clipper.*`.
@@ -30,6 +33,7 @@ full file
 - Do not invent a different VERIFY command.
 - Dotfiles keep their leading dot: `.gitignore` not `gitignore`.
 - Frontend: no Inter, no fake `next/font` subsets, no em dash characters, no three equal feature cards, no AI-purple glow.
+- A homepage that is only an `h1` plus a paragraph fails every story after US-001. Build the real UI the current story names.
 - iOS: every referenced type must exist. `AVSpeechSynthesisDelegate` needs `import AVFAudio`. No fake SwiftData preview inits.
 - Cubeland: `index.html` must import `/src/main.ts`. A canvas that never boots is a fail.
 
